@@ -1,4 +1,58 @@
 ﻿@page
 @model Online_App_store.Pages.DeveloperModel
 @{
+    Layout = "Dev_Layout";
 }
+
+<form method="post" enctype="multipart/form-data" class="mt-4">
+    <div class="mb-3">
+        <label for="AppName" class="form-label">App Name:</label>
+        <input type="text" id="AppName" name="App.AppName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="DevName" class="form-label">Developer Name:</label>
+        <input type="text" id="DevName" name="App.DevName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Type" class="form-label">Type:</label>
+        <input type="text" id="Type" name="App.Type" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="AppFile" class="form-label">Choose a file:</label>
+        <input type="file" id="AppFile" name="App.UploadedFile" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<h2>App List</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>App Name</th>
+            <th>Developer Name</th>
+            <th>Type</th>
+            <th>App File</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var app in Model.AppList)
+        {
+            <tr>
+                <td>@app.AppName</td>
+                <td>@app.DevName</td>
+                <td>@app.Type</td>
+                <td>@app.AppFile</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@app.Id">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Include Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">

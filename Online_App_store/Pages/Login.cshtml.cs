@@ -40,7 +40,7 @@ namespace Online_App_store.Pages
                     if (dt.Rows.Count >= 0)
                     {
                         if (Type == "developer")
-                        {                      
+                        {
                             return RedirectToPage("/Developer");
                         }
                         if (Type == "customer")

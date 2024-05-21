@@ -52,9 +52,6 @@ namespace Online_App_store.Pages
 
             }
 
-            Console.WriteLine(User.Email);
-            Console.WriteLine(User.Password);
-
         }
         public void OnGet()
         {
