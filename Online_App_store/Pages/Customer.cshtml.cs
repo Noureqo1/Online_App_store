@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Online_App_store.models;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Online_App_store.Pages
 {
@@ -11,9 +13,32 @@ namespace Online_App_store.Pages
 
         public void OnGet()
         {
+            LoadApps();
+        }
+
+        public IActionResult OnGetDownload(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return NotFound();
+            }
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            var mimeType = "application/octet-stream";
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, mimeType, Path.GetFileName(filePath));
+        }
+
+        private void LoadApps()
+        {
             Apps = new List<App>();
 
-            string connectionString = "Data Source=laptop-oh72tn5u; Initial Catalog = OnlineAppStore; Integrated Security = True";
+            string connectionString = "Data Source=laptop-oh72tn5u;Initial Catalog=OnlineAppStore;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -35,21 +60,6 @@ namespace Online_App_store.Pages
                     }
                 }
             }
-        }
-    }
-    public class DownloadModel : PageModel
-    {
-        public IActionResult OnGet(string fileName)
-        {
-            if (string.IsNullOrEmpty(fileName))
-            {
-                return NotFound();
-            }
-
-            var filePath = Path.Combine("wwwroot", "apps", fileName);
-            var mimeType = "application/octet-stream";
-            var fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes, mimeType, fileName);
         }
     }
 }

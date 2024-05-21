@@ -1,7 +1,8 @@
 ﻿@page
 @model Online_App_store.Pages.CustomerModel
 @{
-	Layout = "Custumer_Layout";
+    Layout = "_Layout";
+    <!-- Correct your layout file name if it is different -->
 }
 
 <!DOCTYPE html>
@@ -31,7 +32,7 @@
                         <td>@app.AppName</td>
                         <td>@app.DevName</td>
                         <td>@app.Type</td>
-                        <td><a href="/download/@app.AppFile" class="btn btn-primary">Download</a></td>
+                        <td><a asp-page="./Customer" asp-route-fileName="@app.AppFile" asp-route-handler="Download" class="btn btn-primary">Download</a></td>
                     </tr>
                 }
             </tbody>
