@@ -6,6 +6,8 @@ namespace Online_App_store.models
     [BindProperties(SupportsGet = true)]
     public class users
     {
+        internal int Id;
+
         [BindProperty]
         [StringLength(25, MinimumLength = 3)]
         public String? Email { get; set; }

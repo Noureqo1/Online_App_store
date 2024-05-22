@@ -15,7 +15,6 @@ namespace Online_App_store.Pages
         public new required models.users User { get; set; }
 
         public required string ErrorMessage { get; set; }
-        public required string Type { get; set; }
 
         public IActionResult OnPost()
         {
@@ -36,18 +35,18 @@ namespace Online_App_store.Pages
                 {
                     con.Open();
                     dt.Load(command.ExecuteReader());
-                    Type = (string)Getype.ExecuteScalar();
+                    User.Type = (string)Getype.ExecuteScalar();
                     if (dt.Rows.Count >= 0)
                     {
-                        if (Type == "developer")
+                        if (User.Type == "developer")
                         {
                             return RedirectToPage("/Developer");
                         }
-                        if (Type == "customer")
+                        if (User.Type == "customer")
                         {
                             return RedirectToPage("/Customer");
                         }
-                        if (Type == "admin")
+                        if (User.Type == "admin")
                         {
                             return RedirectToPage("/admin");
                         }
@@ -56,9 +55,10 @@ namespace Online_App_store.Pages
                     else
                     {
                         // User credentials do not match, display an error message
-                        ErrorMessage = "Invalid credentials. Please try again.";
+                        ErrorMessage = "Invalid credentials. Please try again.";                    
+                        return RedirectToPage("/Index");
                     }
-                    return RedirectToPage("/Explore");
+
 
 
                 }

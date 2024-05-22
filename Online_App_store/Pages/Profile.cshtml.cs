@@ -13,15 +13,12 @@ namespace Online_App_store.Pages
         public string Email { get; set; }
         [BindProperty]
         public new required models.users User { get; set; }
-        // Replace "YourConnectionString" with your actual database connection string
 
         string connectionString = "Data Source=laptop-oh72tn5u; Initial Catalog = OnlineAppStore; Integrated Security = True";
 
         public void OnGet()
         {
-
-            // Example: Retrieving user profile data from the database
-            string userEmail = "ahmed@hotmail.com"; // Assuming this is the user's email
+            string userEmail = "ahmed@hotmail.com";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

@@ -1,4 +1,57 @@
 ﻿@page
 @model Online_App_store.Pages.AdminModel
 @{
+    Layout = "Admin_Layout";
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Users</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Manage Users</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.Email</td>
+                        <td>@user.Name</td>
+                        <td>@user.Type</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                            </form>
+                            <form method="post" class="mt-2">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <select name="userType" class="form-control">
+                                    <option value="Admin" selected="@user.Type == " Admin"">Admin</option>
+                                    <option value="Custmer" selected="@user.Type == " User"">Custmer</option>
+                                    <option value="Developer" selected="@user.Type == " User"">Developer</option>
+                                </select>
+                                <button type="submit" asp-page-handler="UpdateType" class="btn btn-primary mt-2">Update Type</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
